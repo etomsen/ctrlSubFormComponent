@@ -7,6 +7,7 @@ interface PersonalDetails {
   name: string;
   surname: string;
   gender: any;
+  selected: boolean;
 }
 
 @Component({
@@ -22,15 +23,16 @@ export class PersonalDetailsComponent extends ControlledSubFormTypedComponent<Pe
     return {
       name: ['', Validators.required],
       surname: '',
-      gender: null
+      gender: null,
+      selected: false
     };
   }
 
   protected mapControlValueToSubForm(value): PersonalDetails {
     if (!value) {
-      return {name: '', surname: '', gender: null};
+      return {name: '', surname: '', gender: null, selected: false};
     }
-    return _pick(value, ['name', 'surname', 'gender']);
+    return _pick(value, ['name', 'surname', 'gender', 'selected']);
   }
 
   protected mapSubFormValueToControl(oldCtrlValue: any, newSubFormValue: PersonalDetails): any {
@@ -38,6 +40,7 @@ export class PersonalDetailsComponent extends ControlledSubFormTypedComponent<Pe
     result.name = newSubFormValue.name;
     result.surname = newSubFormValue.surname;
     result.gender = newSubFormValue.gender;
+    result.selected = !!newSubFormValue.selected;
     return result;
   }
 }

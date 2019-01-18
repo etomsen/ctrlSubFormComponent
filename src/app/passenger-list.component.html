@@ -1,9 +1,14 @@
 <div [formGroup]="subForm" style="padding: 10px; border: 1px solid palevioletred">
   <div formArrayName="passengers">
     <app-personal-details
-    *ngFor="let ctrl of getPassengersArray().controls; let i = index;"
-    [formGroupName]="i"
-    [control]="ctrl">
-  </app-personal-details>
-</div>
+      *ngFor="let ctrl of getPassengersArray().controls; let i = index;"
+      [formGroupName]="i"
+      [control]="ctrl">
+    </app-personal-details>
+  </div>
+  <div><b>PAX-LIST</b></div>
+  <div>subForm.value = {{subForm.value | json}}</div>
+  <div>subForm.valid = {{subForm.valid}}</div>
+  <div>control.value = {{control.value | json}}</div>
+  <div>control.valid = {{control.valid}}</div>
 </div>

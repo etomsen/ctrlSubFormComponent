@@ -1,5 +1,8 @@
 <div [formGroup]="subForm" style="padding: 10px; border: 1px solid palevioletred">
   <div>
+      <input type="checkbox" [formControl]="subForm.get('selected')" /> Selected
+  </div>
+  <div>
   <label>
     Name:
     <input type="text" [formControl]="subForm.get('name')">
