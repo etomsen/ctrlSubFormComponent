@@ -1,3 +1,6 @@
 <form [formGroup]="form">
-   <app-passenger-list [control]="form.get('data')"></app-passenger-list>
+  <app-passenger-list [control]="form.get('data')"></app-passenger-list>
+  <div><b>APP</b></div>
+  <div>form.value = {{form.value | json}}</div>
+  <div>form.valid = {{form.valid}}</div>
 </form>

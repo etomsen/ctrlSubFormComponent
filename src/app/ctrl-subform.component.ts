@@ -53,7 +53,7 @@ export abstract class ControlledSubFormTypedComponent<SubFormType> implements Af
 
   constructor(formBuilder: FormBuilder) {
     this.formBuilder = formBuilder;
-    this.subForm = this.formBuilder.group(this.getSubFormConfig());
+    this.subForm = this.formBuilder.group(this.getSubFormConfig(), this.getSubFormOptions());
     const initialState: ControlledSubFormState = {
       control: {
         value: null,
@@ -294,5 +294,9 @@ export abstract class ControlledSubFormTypedComponent<SubFormType> implements Af
   protected get isControlValid() {
     return this.control.valid || this.control.disabled;
     // DISABLED is considered valid by default
+  }
+
+  protected getSubFormOptions(): any {
+    return {};
   }
 }

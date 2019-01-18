@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, ValidatorFn, FormGroup } from '@angular/forms';
 import { ControlledSubFormTypedComponent } from './ctrl-subform.component';
-import { pick as _pick, cloneDeep as _cloneDeep } from 'lodash';
+import { pick as _pick, cloneDeep as _cloneDeep, isEmpty as _isEmpty } from 'lodash';
 
 interface PassengerList {
   passengers: any[];
-  passengerSelected: boolean;
 }
+
+const PassengerListValidator: ValidatorFn = (subForm: FormGroup) => {
+  const passengerFormArray = subForm.get('passengers') as FormArray;
+  const errors = passengerFormArray.errors || {};
+  const selected = passengerFormArray.length ? passengerFormArray.controls.some(ctrl => {
+    return ctrl.value ? ctrl.value.selected : false;
+  }) : false;
+  selected ? delete errors['noPassengerSelected'] : errors['noPassengerSelected'] = 'No passenger selected';
+  return _isEmpty(errors) ? null : errors;
+};
 
 @Component({
   selector: 'app-passenger-list',
@@ -14,24 +23,25 @@ interface PassengerList {
 })
 export class PassengerListComponent extends ControlledSubFormTypedComponent<PassengerList> {
 
-  selectedPassenger = -1;
-
   constructor(formBuilder: FormBuilder) {
     super(formBuilder);
   }
 
+  protected getSubFormOptions() {
+    return {validator: PassengerListValidator};
+  }
+
   getSubFormConfig() {
     return {
-      passengers: this.formBuilder.array([]),
-      passengerSelected: [false, Validators.requiredTrue]
+      passengers: this.formBuilder.array([])
     };
   }
 
   protected mapControlValueToSubForm(value): PassengerList {
     if (!value) {
-      return {passengers: [], passengerSelected: false};
+      return {passengers: []};
     }
-    const result = {passengers: _cloneDeep(value), passengerSelected: this.selectedPassenger >= 0};
+    const result = {passengers: _cloneDeep(value)};
     this.updatePassengersFormArray(result);
     return result;
   }
