@@ -1,0 +1,25 @@
+<div [formGroup]="subForm" style="padding: 10px; border: 1px solid palevioletred">
+  <div>
+  <label>
+    Name:
+    <input type="text" [formControl]="subForm.get('name')">
+  </label>
+  </div>
+  <div *ngIf="subForm.get('name').invalid && (subForm.get('name').dirty || subForm.get('name').touched)" style="color: red;">
+    <div *ngIf="subForm.get('name').errors['required']">
+      Name is required.
+    </div>
+  </div>
+  <div>
+    <label>
+      Surname:
+      <input type="text" [formControl]="subForm.get('surname')">
+    </label>
+  </div>
+  <app-gender [control]="subForm.get('gender')"></app-gender>
+  <div><b>PERSONAL-DETAILS</b></div>
+  <div>subForm.value = {{subForm.value | json}}</div>
+  <div>subForm.valid = {{subForm.valid}}</div>
+  <div>control.value = {{control.value | json}}</div>
+  <div>control.valid = {{control.valid}}</div>
+</div>

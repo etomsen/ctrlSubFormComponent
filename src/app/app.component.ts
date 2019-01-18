@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'ctrlSubFormComponent';
+  form: FormGroup;
+  constructor(private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      data: [[
+        {name: 'Johh', surname: 'Doe', gender: {code: 'MALE'}}
+      ]]
+    });
+  }
 }

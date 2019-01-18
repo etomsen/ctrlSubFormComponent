@@ -1,0 +1,18 @@
+<div [formGroup]="subForm" style="padding: 10px; border: 1px solid palevioletred">
+  <div *ngFor="let genderLabel of genderLabels; let i = index">
+    <label>
+      <input type="radio" [value]="genderLabel.value" formControlName="code">
+      <span>{{genderLabel.display}}</span>
+    </label>
+  </div>
+  <div *ngIf="subForm.get('code').invalid && (subForm.get('code').dirty || subForm.get('code').touched)" style="color: red;">
+    <div *ngIf="subForm.get('code').errors['required']">
+      Gender is required.
+    </div>
+  </div>
+  <div><b>GENDER</b></div>
+  <div>subForm.value = {{subForm.value | json}}</div>
+  <div>subForm.valid = {{subForm.valid}}</div>
+  <div>control.value = {{control.value | json}}</div>
+  <div>control.valid = {{control.valid}}</div>
+</div>

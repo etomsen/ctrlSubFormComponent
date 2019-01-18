@@ -1,0 +1,9 @@
+<div [formGroup]="subForm" style="padding: 10px; border: 1px solid palevioletred">
+  <div formArrayName="passengers">
+    <app-personal-details
+    *ngFor="let ctrl of getPassengersArray().controls; let i = index;"
+    [formGroupName]="i"
+    [control]="ctrl">
+  </app-personal-details>
+</div>
+</div>
